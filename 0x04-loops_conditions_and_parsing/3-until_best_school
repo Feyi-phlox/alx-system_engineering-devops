@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script Uses an until loop to display "Best School" 10 times
+# This script uses an until loop to display "Best School" 10 times
 count=0
 until [ $count -ge 10 ]
 do
