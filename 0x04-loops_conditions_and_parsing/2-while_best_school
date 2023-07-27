@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This Bash script displays "Best School" 10 times; each one on a new line
 i=1
-while ((i =< 10))
+while ((i <= 10))
 do
 	echo "Best School"
 	((i++))
