@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Gets the current process ID (PID) using the special variable $$
+
+echo "$$"
