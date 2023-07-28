@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script uses the ps command with specific options to show all processes
+# for all users and display in a user-oriented format
+
+ps auxf
