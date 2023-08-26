@@ -1,0 +1,65 @@
+https://imgur.com/5o2koau
+
+
+#Web Infrastructure Flow explanation: One Server Hosting www.foobar.com
+
+#1.User Accesses Website:
+
+#	A user types in the URL "www.foobar.com" in their web browser.
+
+#2.Domain Name Resolution:
+
+#	The user's computer initiates a DNS lookup to translate "www.foobar.com" into an IP address.
+#	The DNS server responds with the IP address 8.8.8.8.
+
+#3.User Reaches Web Server:
+
+#	User's request reaches the server with IP 8.8.8.8.
+
+#4.Web Server (Nginx):
+
+#	Nginx acts as a reverse proxy and handles incoming HTTP requests.
+#	It can also serve static files directly to the user.
+#	Nginx forwards dynamic requests to the application server.
+
+#5.Application Server:
+
+#	The application server (e.g., using Node.js, Python, etc.) processes dynamic requests.
+#	It interacts with the application files (your code base) to generate dynamic content.
+#	It sends queries to the database to fetch or store data.
+
+#6.Database (MySQL):
+
+#	The database stores and manages structured data, like user accounts, posts, etc.
+#	Application server communicates with the database using SQL queries.
+#	MySQL manages data integrity, indexing, and querying.
+
+#7.User Receives Response:
+
+#	The application server generates a dynamic response.
+#	The web server sends the response back to the user's browser.
+#	Communication with User:
+
+The communication between the server (8.8.8.8) and the user's computer happens over the internet using the HTTP protocol.
+Data packets are transmitted back and forth through routers and switches.
+
+#		Issues with the Infrastructure:
+
+#1.Single Point of Failure (SPOF):
+
+#	Since there's only one server, if it goes down, the entire website becomes inaccessible.
+#	This includes issues with the server hardware, software crashes, etc.
+
+#2.Downtime During Maintenance:
+
+#	When maintenance is needed, like deploying new code or updating the server, the web server might need to be restarted.
+#	During this time, the website could be temporarily unavailable.
+
+#3.Scalability Concerns:
+
+#	With only one server, handling a sudden influx of traffic can be challenging.
+#	The infrastructure doesn't easily allow scaling to meet higher demands.
+
+#4.Limited Fault Tolerance:
+
+#	A failure in any component (web server, app server, database) could disrupt the entire service.
