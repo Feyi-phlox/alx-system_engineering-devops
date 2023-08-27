@@ -1,0 +1,64 @@
+https://imgur.com/IaNzULM
+
+Three-Server Web Infrastructure for www.foobar.com:
+
+User Accesses Website:
+
+A user types in the URL "www.foobar.com" in their web browser.
+Domain Name Resolution:
+
+The user's computer initiates a DNS lookup to translate "www.foobar.com" into an IP address.
+The DNS server responds with the IP addresses of the servers in the load-balanced setup.
+Load Balancer (HAproxy):
+
+Two servers are used to balance the incoming traffic.
+The load balancer distributes incoming requests across the servers using a round-robin distribution algorithm.
+This balances the load and prevents overwhelming a single server.
+Server 1 (Web + App):
+
+Nginx on Server 1 acts as a reverse proxy and handles incoming HTTP requests.
+It forwards dynamic requests to the application server.
+Application server interacts with code base and sends queries to the database.
+Server 2 (Web + App):
+
+Similar setup as Server 1.
+Provides redundancy and scalability.
+Application Server:
+
+Processes dynamic requests and interacts with application code base.
+Sends dynamic content to Nginx for delivery to users.
+Database (MySQL Primary-Replica Cluster):
+
+MySQL Primary node handles write operations (INSERT, UPDATE, DELETE).
+MySQL Replica node(s) handle read operations (SELECT).
+Replication keeps data consistent across nodes.
+Primary node sends changes to Replica nodes.
+Explanations:
+
+Load Balancer: Added to distribute traffic among servers, improving performance and preventing overloading a single server.
+Server Redundancy: Two servers for redundancy and load distribution, minimizing downtime and improving user experience.
+MySQL Primary-Replica: Improves database performance and provides fault tolerance.
+Issues with the Infrastructure:
+
+Single Point of Failure (SPOF):
+
+If the load balancer fails, the entire system might be affected.
+If the primary database node fails, data updates could be disrupted.
+Security Issues:
+
+No firewall mentioned, leaving servers potentially exposed.
+No HTTPS mentioned, leading to data transmission vulnerabilities.
+No Monitoring:
+
+Lack of monitoring tools makes it difficult to identify and address performance or security issues.
+Load Balancer Configuration:
+
+Round-robin distribution algorithm balances requests equally among servers.
+Active-Active vs. Active-Passive Setup:
+
+Active-Active: Both servers are actively handling traffic simultaneously, sharing the load.
+Active-Passive: One server handles traffic while the other remains on standby, activated only if the active server fails.
+Database Primary-Replica Cluster:
+
+Primary Node: Handles write operations, responsible for data consistency.
+Replica Node: Handles read operations, reduces the read load on the primary node, and provides redundancy.
