@@ -1,0 +1,40 @@
+#!usr/bin/env bash
+# configure web-02 to be identical to web-01
+#  track which web server is answering our HTTP requests
+# to understand and track the way a load balancer works
+sudo apt-get update
+if [ ! -x /usr/bin/nginx ]; then 
+     sudo apt-get -y install nginx
+fi
+
+if [ ! -d /var/www/nginx-html ]; then
+     sudo mkdir -p /var/www/nginx-html
+fi
+
+touch /var/www/nginx-html/index.html
+echo "Hello World!" > /var/www/nginx-html/index.html
+
+if [ ! -f /var/www/nginx-html/404.html ]; then
+    touch /var/www/nginx-html/404.html
+    echo -e "Ceci n'est pas une page" > /var/www/nginx-html/404.html
+fi
+
+printf %s "server {
+     listen      80 default_server;
+     listen      [::]:80 default_server;
+     root        /var/www/nginx-html;
+     index       index.html index.htm;
+     add_header X-Served-By $HOSTNAME;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+        root /var/www/nginx-html;
+        internal;
+    }
+}
+" > /etc/nginx/sites-available/default
+service nginx restart
