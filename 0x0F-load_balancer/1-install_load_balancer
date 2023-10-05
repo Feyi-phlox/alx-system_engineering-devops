@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# script that configures a new Ubuntu machine
+# Install and configure HAproxy on your lb-01 server
+# Configure HAproxy so that it send traffic to web-01 and web-02
+# Make sure that HAproxy can be managed via an init script
+# Make sure that your servers are configured with the right hostnames: [STUDENT_ID]-web-01 and [STUDENT_ID]-web-02
+
+apt-get install -y  --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.8
+apt-get update -y
+apt-get install -y haproxy
+
+echo "
+frontend web_frontend
+	bin *:80
+	mode http
+	default_backend web_backend
+
+backend web_backend
+	balance roundrobin
+	server 331378-web-01 54.84.85.121:80 check
+	server 331378-web-02 54.237.5.69:80 check" >> /etc/haproxy/haproxy.cfg
+
+service haproxy restart	
