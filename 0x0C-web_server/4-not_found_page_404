@@ -5,21 +5,15 @@ if [ ! -f /var/www/nginx-html/404.html ]; then
     touch /var/www/nginx-html/404.html
     echo -e "Ceci n'est pas une page\n" > /var/www/nginx-html/404.html
 fi
-printf %s "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /var/www/nginx-html;
-     index       index.html index.htm;
-
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-
+sed -i 'server_name__;a \
+\
+    location /redirect_me {\
+    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; \
+    } \
+\
     error_page 404 /404.html;
     location /404 {
         root /var/www/nginx-html;
         internal;
-    }
-}
-" > /etc/nginx/sites-available/default
+}' /etc/nginx/sites-available/default
 service nginx restart
