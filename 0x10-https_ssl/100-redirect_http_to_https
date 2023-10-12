@@ -43,12 +43,12 @@ frontend http
         default_backend web-backend
 
 frontend www-https
-        bind *:443 ssl crt /etc/haproxy/ssl/www.feyiphlox.tech.pem
+        bind *:443 ssl crt /etc/haproxy/www.feyiphlox.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend web-backend
 
 backend web-backend
         balance roundrobin
-        redirect scheme https if !{ ssl_fc }
+        redirect scheme https code 301 if !{ ssl_fc }
         server web-01 54.84.85.121:80 check
         server web-02 54.237.5.69:80 check
