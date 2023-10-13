@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# script that automates the fix of nginx not listening @port 80 in a short way
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+kill "$(pgrep 'nginx' | head -1)"
