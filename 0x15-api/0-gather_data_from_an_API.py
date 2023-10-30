@@ -9,9 +9,9 @@ from sys import argv
 if __name__ == "__main__":
     base_url = 'https://jsonplaceholder.typicode.com'
 
-    name_url = base_url + "/user/{}".format(argv[1])
+    name_url = base_url + "/users/{}".format(argv[1])
     name_res = requests.get(name_url).json()
-    todo_url = base_url + "/users/{}/todos".format(argv[1])
+    todo_url = base_url + "/user/{}/todos".format(argv[1])
     todo_res = requests.get(todo_url).json()
 
     todo_num = len(todo_res)
